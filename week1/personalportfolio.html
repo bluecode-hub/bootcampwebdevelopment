@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mahek's Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      background-color: rgb(184, 235, 243);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sidebar {
+      background-color: #f4f9ff;
+      width: 150px;
+      padding: 20px;
+      height: 100vh;
+      border-right: 2px solid black;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .picture-placeholder {
+      width: 100%;
+      height: 150px;
+      background-color: #ccc;
+      border: 2px dashed #999;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .picture-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .icon-container img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      border: 1px solid #999;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .icon-container img:hover {
+      transform: scale(1.1);
+    }
+
+    .sidebar h3 {
+      margin-top: 150px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .main-content {
+      margin-left: 200px;
+      width: calc(100% - 200px);
+      padding: 20px;
+    }
+
+    .header-image {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .header-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+      text-align: center;
+    }
+
+    h2 {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 26px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .about,
+    .skill,
+    .exp,
+    .school,
+    .certificate,
+    .projects {
+      margin-bottom: 40px;
+    }
+
+    .about-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .about-content img {
+      width: 350px;
+      height: 250px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .about-text {
+      background-color: white;
+      border: 2px solid #333;
+      border-radius: 10px;
+      padding: 15px;
+      max-width: 500px;
+      min-width: 225px;
+      height: 200px;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .skill ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill li {
+      background-color: #fff;
+      border: 2px solid #333;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .skill li:hover {
+      background-color: #d2f0ff;
+      transform: scale(1.05);
+    }
+
+    .exp ul {
+      border: 2px solid black;
+      border-radius: 5px;
+      padding: 15px;
+      background-color: #fff;
+      list-style: disc inside;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .exp li {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .timeline {
+      position: relative;
+      margin-left: 20px;
+      padding-left: 30px;
+      border-left: 3px solid #333;
+    }
+
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 14px;
+      height: 14px;
+      background-color: #333;
+      border-radius: 50%;
+      position: absolute;
+      left: -8px;
+      top: 5px;
+      border: 2px solid white;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-content {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 5px;
+      font-size: 18px;
+      color: #00567d;
+    }
+
+    .certificate ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .certificate li {
+      background: white;
+      border: 2px solid #0077b6;
+      border-radius: 10px;
+      padding: 15px;
+      font-weight: bold;
+      color: #023e8a;
+      font-size: 16px;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease;
+    }
+
+    .certificate li:hover {
+      transform: translateY(-5px);
+      background-color: #caf0f8;
+    }
+
+    .projects .project-card {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 1.5px solid #0077b6;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .projects .project-card:hover {
+      transform: scale(1.02);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-card h3 {
+      color: #0077b6;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .project-card p {
+      margin-bottom: 10px;
+    }
+
+    .project-card a {
+      display: inline-block;
+      margin-top: 5px;
+      text-decoration: none;
+      background-color: #0077b6;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+
+    .project-card a:hover {
+      background-color: #005f87;
+    }
+
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="picture-placeholder">
+      <img src="picture.jpg" alt="Profile" />
+    </div>
+    <div class="icon-container">
+      <a href="tel:+9019513486"><img src="whatsapp.png" alt="Phone" /></a>
+      <a href="https://www.instagram.com/mahekg312006" target="_blank"><img src="instagram_icon.png" alt="Instagram" /></a>
+      <a href="mailto:mahekg819@gmail.com"><img src="icon.png" alt="Email" /></a>
+      <a href="https://www.linkedin.com/in/your-linkedin-id" target="_blank"><img src="linkidin.png" alt="LinkedIn" /></a>
+      <h3>Know More</h3>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <div class="header-image">
+      <img src="splah.jpg" alt="Header Banner" />
+      <div class="header-text">Hello there! I am Mahek</div>
+    </div>
+
+    <div class="about">
+      <h2><u>About</u></h2>
+      <div class="about-content">
+        <img src="about.jpeg" alt="About image" />
+        <div class="about-text">
+          <p>
+            Hi! I am a first-year B.Tech student from Manipal Institute of Technology. I am a very dedicated student who is hardworking. My hobbies include music, running, binge watching, and coding. I have a bubbly personality and strive to improve every day.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <h2><u>Skills</u></h2>
+      <ul>
+        <li>Python</li>
+        <li>Java</li>
+        <li>C++</li>
+        <li>OpenCV</li>
+        <li>ROS</li>
+        <li>ML</li>
+        <li>DL</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Leadership</li>
+        <li>Teamwork</li>
+        <li>Content Writing</li>
+        <li>Gazebo</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <h2><u>Experience</u></h2>
+      <ul>
+        <li>Working Committee — Research Club</li>
+        <li>Working Committee — LDQ Debate Club</li>
+        <li>House Captain</li>
+        <li>Taskphase Member — Manas AI & Automation</li>
+        <li>Taskphase Member — Manipal Mars Rover</li>
+        <li>Volunteer at VSO</li>
+      </ul>
+    </div>
+
+    <div class="school">
+      <h2><u>Schooling</u></h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Innisfree House School</h3>
+            <p>10th Grade — 96.4% (Till 2022)</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Bangalore International School</h3>
+            <p>12th Grade — 93.5% (2022–2024)</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Allen JEE Coaching</h3>
+            <p>97.6% (2022–2024)</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Manipal Institute of Technology</h3>
+            <p>B.Tech (2024–2028)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="certificate">
+      <h2><u>Certificates</u></h2>
+      <ul>
+        <li>C++ Beginner Course</li>
+        <li>Supervised Learning - Stanford University</li>
+        <li>CNN - Stanford University</li>
+        <li>DSA - Apna College</li>
+        <li>Web Development - Apna College</li>
+      </ul>
+    </div>
+
+    <div class="projects">
+      <h2><u>Projects</u></h2>
+
+      <div class="project-card">
+        <h3>Autonomous Robot with GPS + LiDAR</h3>
+        <p>Built a robot that navigates to GPS waypoints while avoiding obstacles using ROS 2 and Tangent Bug algorithm.</p>
+        <p><strong>Tech:</strong> ROS 2, C++, Python, Rviz, LiDAR</p>
+        <a href="https://github.com/your-repo" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <h3>Blurry Vision</h3>
+        <p>A DL model that deblurs images and segments them to identify objects clearly.</p>
+        <p><strong>Tech:</strong> Jupyter, PyTorch, Python, U-Net</p>
+        <a href="https://github.com/your-repo" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <h3>Music Player (Gesture Controlled)</h3>
+        <p>An OpenCV gesture-based application that uses hand movement to control music playback.</p>
+        <p><strong>Tech:</strong> MediaPipe, OpenCV, Python</p>
+        <a href="https://github.com/your-repo" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
